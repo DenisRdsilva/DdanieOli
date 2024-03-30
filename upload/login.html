@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Oli Fotografias</title>
+
+    <link href="estilo.css" rel="stylesheet">
+    <link rel="icon" href="/galerias/midia/icon.png" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <script type="module" src="app.js"></script>
+    <script src="app2.js" type="module"></script>
+    <script src="index.js" type="module"></script>
+    <script src="server.js" type="module"></script>
+</head>
+
+<body>
+    <div class="screen1">
+        <div class="container">
+            <form>
+                <div>
+                    <div id="topcard">
+                        <img src="/galerias/midia/icon.png" id="icon">
+                        <div id="divider"></div>
+                    </div><br>
+                    <label>Acesso Restrito</label><br><br>
+                    <input type="e-mail" id="email" placeholder="E-mail">
+                    <input type="password" id="senha" placeholder="Senha">
+                </div>
+
+                <div id="newpass">
+                    <a href="resetpassword.html">Esqueceu a senha?</a>
+                </div>
+
+                <div>
+                    <br><button type="submit" id="signbtn">Entrar</button><br>
+
+                    <br><button id="backhome"><a href="/">Voltar ao
+                            Home</a></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="screen2">
+        <div class="container">
+
+            <!--
+            <div id="controldiv">
+                <form id="imageForm">
+                    <input id="imageInput" type="file" accept="image/+">
+                    <button type="submit">Fazer Upload</button><br>
+                </form>                
+            </div>
+            -->
+            <div id="topcard">
+                <img src="/galerias/midia/icon.png" id="icon">
+                <div id="divider"></div>
+            </div><br>
+
+            <label id="loadlab">Inserir Imagens</label><br><br>
+
+            <Select id="drop-select">
+                <option value="" disabled selected hidden>Selecione uma Galeria</option>
+            </Select>
+
+            <div id="controldiv">
+                <button id="selimgsbtn">Selecionar Imagens</button>
+                <button id="addprodbtn" type="submit">Fazer Upload</button><br>
+            </div>
+
+            <div id="imagesdiv"></div>
+
+            <div>
+                <br><button id="backbutton">Voltar</button>
+                <button type="submit" id="logout">Sair da conta</button><br>
+
+                <br><button id="backhome"><a href="/">Voltar ao Home</a></button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAny_6AT2YAYjPttmne0jygcqOWtu23lvA",
+            authDomain: "danielolifotografias.firebaseapp.com",
+            databaseURL: "https://danielolifotografias-default-rtdb.firebaseio.com",
+            projectId: "danielolifotografias",
+            storageBucket: "danielolifotografias.appspot.com",
+            messagingSenderId: "1084089897568",
+            appId: "1:1084089897568:web:35fcfd9ddedf03620ae905"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const user = auth.currentUser;
+
+        $(".screen2").hide();
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                $(".screen1").hide();
+                $(".screen2").show();
+            }
+        });
+
+    </script>
+
+    <div id="datadiv"></div>
+
+    <footer>
+        <p>Daniel Oli Photography © Designed by DSilva</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,322 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+div {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+nav {
+    position: fixed;
+    width: 23%;
+    background-image: linear-gradient(rgb(85, 85, 85) 40%, rgb(30, 30, 30));
+    height: max-content;
+    color: white;
+    height: 100vh;
+    z-index: 2;
+}
+
+.menu {
+    background-color: black;
+    width: auto;
+}
+
+.menu:hover {
+    background-color: black;
+}
+
+video {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.logo {
+    margin-top: 50px;
+    width: 100%;
+}
+
+nav ul a .destaque {
+    background-color: black;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 20px;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+nav ul a {
+    text-decoration: none;
+}
+
+nav ul a:active {
+    text-decoration: none;
+}
+
+nav ul a li {
+    text-decoration: none;
+    color: white;
+    padding-left: 40px;
+    padding-right: 0px;
+}
+
+nav ul a .menu {
+    text-decoration: none;
+    color: white;
+    padding-left: 20px;
+}
+
+nav ul a li:hover {
+    background-color: black;
+    padding-left: 60px;
+}
+
+nav ul a li:hover:first-child {
+    background-color: black;
+    padding-left: 20px;
+}
+
+nav ul a li:active {
+    text-decoration: none;
+}
+
+nav .btns {
+    display: flex;
+    flex-direction: row;
+} 
+
+nav button {
+    width: 11.5vw;
+    position: relative;
+    text-align: center;
+    font-size: 20;
+    height: 30px;
+    top: 10px;
+}
+
+section {
+    width: 77%;
+    margin-left: 23%;
+}
+
+section img {
+    background-color: rgb(70, 70, 70);
+    height: 95vh;
+    display: block;
+    padding-left: 25px;
+}
+
+section img:last-child {
+    padding-right: 25px;
+}
+
+section {
+    display: flex;
+    flex-flow: row;
+    border-left: 25px solid;
+    border-right: 25px solid;
+    border-color: rgb(38, 38, 38);
+    height: calc(100% - 40px);
+}
+
+.legenda {
+    border-right: 35px solid;
+    border-color: rgb(38, 38, 38);;
+    border-left: 0px solid;
+    height: inherit;
+    text-align: left;
+    background-color: rgb(25, 25, 25);
+}
+
+.legenda:first-child{
+    border-left: 25px solid;
+}
+
+.legenda a {
+    text-decoration: none;
+    height: 100vh;
+}
+
+.legenda a p {
+    color: white;
+    font-size: 18px;
+    padding-left: 12px;
+    padding-right: 40px;
+    position: relative;
+    top: 15%;
+    z-index: 1;
+    margin: 0;
+}
+
+.legenda a p:hover {
+    color: rgb(145, 145, 145);
+    text-decoration: none;
+}
+
+.legenda a p:active {
+    text-decoration: none;
+}
+
+footer {
+    height: 40px;
+    background-color: rgb(55, 55, 55);
+    color: white;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 77%;
+    z-index: 3;
+}
+
+footer p {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); 
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    border-bottom: solid 40px;
+    border-color: rgb(25, 25, 25);
+}
+
+table tr td {
+    height: calc((100vh/5));
+    width: 15vw;
+}
+
+table tr td img{
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+}
+
+@media only screen and (max-width: 850px) {
+    .btns b:nth-child(2) {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    div {
+        margin: 0;
+        flex-direction: column;
+    }
+
+    nav {
+        position: relative;
+        width: 100%;
+        height: 95%;
+        background-color: rgb(85, 85, 85);
+    }
+
+    .bar {
+        height: 95vh;
+    }
+    
+    nav .btns {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    nav button {
+        width: 50vw;
+        position: relative;
+        text-align: center;
+        font-size: 20;
+        height: 30px;
+        top: 10px;
+    }
+
+    .btns b:nth-child(2) {
+        display: inline-block;
+    }
+
+    .btns img {
+        padding-bottom: 1px;
+    } 
+
+    .fig {
+        display: none;
+    }
+
+    .cont {
+        padding: 0;
+    }
+
+    section {
+        padding-top: 70px;
+        width: 100%;
+        margin: 0;
+        border: 0;
+        padding-bottom: 15px;
+        display: flex;
+        flex-flow: column;
+        background-color: rgb(85, 85, 85);
+    }
+
+    section img{
+        position: relative;
+        display: block;
+        border-bottom: solid rgb(70, 70, 70) 15px;
+        margin: 0;
+        padding: 0;
+        height: max-content;
+    }
+    
+    section img:last-child {
+        padding-right: 0px;
+    }
+
+    video {
+        width: 80%;
+        margin-top: 25px;
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+
+    .logo {
+        width: 80%;
+        margin-top: 25px;
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+
+    .fig {
+        display: none;
+    }
+
+    .cont {
+        padding: 0;
+    }
+
+    footer {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 5vh;
+    }
+}
