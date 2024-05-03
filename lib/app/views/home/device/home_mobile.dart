@@ -49,7 +49,6 @@ class _HomeMobileState extends State<HomeMobile> {
 
   @override
   Widget build(BuildContext context) {
-    double sheight = MediaQuery.of(context).size.height;
     CarouselController buttonCarouselController = CarouselController();
     return Stack(
         fit: StackFit.expand,
