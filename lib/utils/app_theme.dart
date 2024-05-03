@@ -132,6 +132,8 @@ final MaterialApp appMaterial = MaterialApp(
         error: error,
         onError: onError,
         surface: surface,
+        background: surface,
+        onBackground: onSurface,
         onSurface: onSurface,
       ),
       textTheme: textTheme),
