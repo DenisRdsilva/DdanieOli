@@ -183,7 +183,7 @@ class _VideoDisplayerState extends State<VideoDisplayer> {
               padding: const EdgeInsets.only(bottom: 20),
               child: AspectRatio(
                 aspectRatio: widget.videoController.value.aspectRatio,
-                child: Image.asset("assets/images/DanielOli.jpg"),
+                child: Image.asset("assets/images/danieloli.jpg"),
               ),
             );
           }
