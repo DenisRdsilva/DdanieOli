@@ -91,7 +91,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
     final album = ref.read(selectedAlbum);
 
     return Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 25, left: 15, right: 15),
+      padding: const EdgeInsets.only(top: 20, bottom: 15, left: 15, right: 15),
       width: widget.swidth,
       color: terciary,
       child: Column(
@@ -119,7 +119,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
           // } else ...{
           Container(
               width: widget.swidth * .9,
-              margin: const EdgeInsets.only(bottom: 15),
+              margin: const EdgeInsets.only(top: 10, bottom: 15),
               child: Wrap(
                 alignment: WrapAlignment.spaceBetween,
                 crossAxisAlignment: WrapCrossAlignment.center,
