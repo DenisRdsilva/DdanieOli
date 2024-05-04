@@ -2,8 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ddanieloli/app/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../utils/app_theme.dart';
-
 class HomeMobile extends StatefulWidget {
   final double swidth;
   const HomeMobile({super.key, required this.swidth});
@@ -18,19 +16,26 @@ class _HomeMobileState extends State<HomeMobile> {
   List<Widget> imagesHome = [
     for (var i = 1; i <= 5; i++) ...{
       Stack(
-        alignment: Alignment.bottomLeft,
+        alignment: Alignment.bottomCenter,
         children: [
           Image.asset("assets/images/gal${i}m.jpg"),
-          Material(
-              color: Colors.black45,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(galeriesTitle[i - 1],
-                      textScaler: const TextScaler.linear(1.8),
-                      style: textTheme.bodySmall),
-                ],
-              )),
+          SizedBox(
+              child: Material(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(galeriesTitle[i - 1],
+                        textScaler: const TextScaler.linear(1.8),
+                        style: const TextStyle(
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0, 2),
+                              blurRadius: 5,
+                              color: Colors.black,
+                            )
+                          ],
+                        )),
+                  ))),
         ],
       ),
     }
