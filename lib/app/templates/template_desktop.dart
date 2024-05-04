@@ -14,27 +14,23 @@ class TemplateSideMenu extends StatelessWidget {
     double sheight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
-        Expanded(
-          child: SizedBox(
-              width: swidth,
-              height: sheight,
-              child: Padding(
-                padding: EdgeInsets.only(left: swidth*.23),
-                child: Stack(alignment: Alignment.bottomCenter, children: [
-                  Expanded(
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [terciary, surface],
-                                stops: [0, 1])),
-                        child: content),
-                  ),
-                  Container( color: const Color.fromRGBO(55, 55, 55, .7), height: 50, child: const Footer()),
-                ]),
-              )),
-        ),
+        SizedBox(
+            width: swidth,
+            height: sheight,
+            child: Padding(
+              padding: EdgeInsets.only(left: swidth*.23),
+              child: Stack(alignment: Alignment.bottomCenter, children: [
+                Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [terciary, surface],
+                            stops: [0, 1])),
+                    child: content),
+                Container( color: const Color.fromRGBO(55, 55, 55, .7), height: 50, child: const Footer()),
+              ]),
+            )),
         Material(
             elevation: 10,
             child: SizedBox(
