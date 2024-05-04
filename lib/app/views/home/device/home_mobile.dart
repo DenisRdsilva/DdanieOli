@@ -86,7 +86,7 @@ class _HomeMobileState extends State<HomeMobile> {
                 autoPlayAnimationDuration: const Duration(seconds: 5),
                 pauseAutoPlayOnTouch: false,
                 enlargeCenterPage: true,
-                enlargeFactor: .2,
+                enlargeFactor: .25,
                 viewportFraction: .5,
                 initialPage: 0,
               ),
