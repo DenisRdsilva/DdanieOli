@@ -89,7 +89,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
         if (snapshot.connectionState == ConnectionState.done) {
           return Container(
             padding:
-                const EdgeInsets.only(top: 30, bottom: 25, left: 15, right: 15),
+                const EdgeInsets.only(top: 20, bottom: 15, left: 15, right: 15),
             width: widget.swidth,
             color: terciary,
             child: Column(
