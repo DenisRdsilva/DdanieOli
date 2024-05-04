@@ -26,7 +26,7 @@ const LinearGradient gradientColor = LinearGradient(
 const TextTheme textTheme = TextTheme(
   titleLarge: TextStyle(
       fontFamily: 'Saira',
-      fontSize: 36,
+      fontSize: 35,
       fontWeight: FontWeight.bold,
       color: primary),
   titleMedium: TextStyle(
