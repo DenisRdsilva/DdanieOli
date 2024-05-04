@@ -87,7 +87,7 @@ class _HomeMobileState extends State<HomeMobile> {
                 pauseAutoPlayOnTouch: false,
                 enlargeCenterPage: true,
                 enlargeFactor: .25,
-                viewportFraction: .5,
+                viewportFraction: .48,
                 initialPage: 0,
               ),
             ),

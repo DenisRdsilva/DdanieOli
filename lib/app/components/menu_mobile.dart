@@ -202,7 +202,9 @@ class _VideoDisplayerState extends State<VideoDisplayer> {
               ),
             );
           }
-          return const Center(child: CircularProgressIndicator());
+          return AspectRatio(
+              aspectRatio: widget.videoController.value.aspectRatio,
+              child: const Center(child: CircularProgressIndicator()));
         });
   }
 }
