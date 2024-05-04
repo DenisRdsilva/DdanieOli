@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
 import '../../utils/app_theme.dart';
@@ -21,8 +20,6 @@ class MenuMobile extends ConsumerStatefulWidget {
 }
 
 class _MenuMobileState extends ConsumerState<MenuMobile> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
   List<Albums> albumsData = [];
   bool displayVideo = false;
   bool displayImage = true;
@@ -31,9 +28,6 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   @override
   void initState() {
     super.initState();
-
-    _controller = VideoPlayerController.asset('assets/videos/DanielOli.mp4');
-    _initializeVideoPlayerFuture = _controller.initialize();
 
     hideImage();
     getCache();
@@ -47,16 +41,16 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
     });
   }
 
-  void hideVideo() {
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.play();
+  // void hideVideo() {
+  //   _initializeVideoPlayerFuture = _controller.initialize();
+  //   _controller.play();
 
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        displayVideo = false;
-      });
-    });
-  }
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     setState(() {
+  //       displayVideo = false;
+  //     });
+  //   });
+  // }
 
   void getCache() async {
     try {
@@ -113,15 +107,15 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
                 aspectRatio: 7/5,
                 child: Image.asset("assets/images/danieloli.jpg")),
           ),
-          AnimatedContainer(
-              height: displayVideo ? double.maxFinite : 0,
-              constraints: const BoxConstraints(maxHeight: 262.5),
-              padding: const EdgeInsets.only(top: 20),
-              duration: const Duration(milliseconds: 500),
-              child: VideoDisplayer(
-                videoController: _controller,
-                initializeVideoPlayerFuture: _initializeVideoPlayerFuture,
-              )),
+          // AnimatedContainer(
+          //     height: displayVideo ? double.maxFinite : 0,
+          //     constraints: const BoxConstraints(maxHeight: 262.5),
+          //     padding: const EdgeInsets.only(top: 20),
+          //     duration: const Duration(milliseconds: 500),
+          //     child: VideoDisplayer(
+          //       videoController: _controller,
+          //       initializeVideoPlayerFuture: _initializeVideoPlayerFuture,
+          //     )),
           // } else ...{
           Container(
               width: widget.swidth * .9,
@@ -152,9 +146,9 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
                         height: 5),
                     onTap: () {
                       setState(() {
-                        displayVideo = true;
+                        displayImage = true;
                       });
-                      hideVideo();
+                      hideImage();
                     },
                   ),
                   instagramButton(context)
@@ -206,36 +200,36 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   }
 }
 
-class VideoDisplayer extends StatefulWidget {
-  final VideoPlayerController videoController;
-  final Future<void> initializeVideoPlayerFuture;
-  const VideoDisplayer({
-    super.key,
-    required this.videoController,
-    required this.initializeVideoPlayerFuture,
-  });
+// class VideoDisplayer extends StatefulWidget {
+//   final VideoPlayerController videoController;
+//   final Future<void> initializeVideoPlayerFuture;
+//   const VideoDisplayer({
+//     super.key,
+//     required this.videoController,
+//     required this.initializeVideoPlayerFuture,
+//   });
 
-  @override
-  State<VideoDisplayer> createState() => _VideoDisplayerState();
-}
+//   @override
+//   State<VideoDisplayer> createState() => _VideoDisplayerState();
+// }
 
-class _VideoDisplayerState extends State<VideoDisplayer> {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: widget.initializeVideoPlayerFuture,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: AspectRatio(
-                  aspectRatio: widget.videoController.value.aspectRatio,
-                  child: VideoPlayer(widget.videoController)),
-            );
-          }
-          return const AspectRatio(
-              aspectRatio: 7/5,
-              child: Center(child: CircularProgressIndicator()));
-        });
-  }
-}
+// class _VideoDisplayerState extends State<VideoDisplayer> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//         future: widget.initializeVideoPlayerFuture,
+//         builder: (BuildContext context, AsyncSnapshot snapshot) {
+//           if (snapshot.connectionState == ConnectionState.done) {
+//             return Padding(
+//               padding: const EdgeInsets.only(bottom: 20),
+//               child: AspectRatio(
+//                   aspectRatio: widget.videoController.value.aspectRatio,
+//                   child: VideoPlayer(widget.videoController)),
+//             );
+//           }
+//           return const AspectRatio(
+//               aspectRatio: 7/5,
+//               child: Center(child: CircularProgressIndicator()));
+//         });
+//   }
+// }
