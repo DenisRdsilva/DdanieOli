@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../main.dart';
 import '../../utils/app_theme.dart';
@@ -21,16 +20,11 @@ class MenuDesktop extends ConsumerStatefulWidget {
 }
 
 class _MenuDesktopState extends ConsumerState<MenuDesktop> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
   List<Albums> albumsData = [];
 
   @override
   void initState() {
     super.initState();
-
-    _controller = VideoPlayerController.asset('assets/videos/DanielOli.mp4');
-    _initializeVideoPlayerFuture = _controller.initialize();
 
     getCache();
   }
