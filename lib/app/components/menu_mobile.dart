@@ -55,7 +55,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
       if (albumId!.isNotEmpty && albumTitle!.isNotEmpty) {
         List<Albums> albumsValues = [];
         for (var i = 0; i < albumId.length; i++) {
-          albumsValues.add(Albums(albumId: albumId[i], title: albumTitle[i]));
+          albumsValues.add(Albums(albumId: albumId[i], title: albumTitle[i], isSelected: false));
         }
         setState(() {
           albumsData = albumsValues;

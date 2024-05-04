@@ -18,7 +18,8 @@ class Photos {
 
 class Albums {
   final String albumId;
+  late final bool isSelected;
   final String title;
 
-  Albums({required this.albumId, required this.title});
+  Albums({required this.albumId, required this.isSelected, required this.title});
 }

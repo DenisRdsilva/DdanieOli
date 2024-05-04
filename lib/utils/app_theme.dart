@@ -86,7 +86,6 @@ const TextTheme textTheme = TextTheme(
 );
 
 final MaterialApp appMaterial = MaterialApp(
-  scrollBehavior: MyCustomScrollBehavior(),
   theme: ThemeData(
       menuButtonTheme: MenuButtonThemeData(
           style: ButtonStyle(
@@ -138,15 +137,11 @@ final MaterialApp appMaterial = MaterialApp(
       ),
       textTheme: textTheme),
   debugShowCheckedModeBanner: false,
-  title: 'Home',
+  title: 'DanielOli',
   home: const HomePage(),
   initialRoute: '/',
   routes: {
     '/galerias': (context) => const GaleriesPage(),
-
-    // '/login': (context) => LoginPageView(),
-    // '/cadastro': (context) => SignInPageView(),
-    // '/esqueciMinhaSenha': (context) => ForgotPasswordView()
   },
   onGenerateRoute: (settings) {
     if (settings.name == null) {
@@ -167,11 +162,3 @@ final MaterialApp appMaterial = MaterialApp(
       MaterialPageRoute(builder: (_) => const ErrorPage()),
   navigatorKey: GlobalKey(),
 );
-
-class MyCustomScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
-}

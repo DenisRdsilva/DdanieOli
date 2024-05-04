@@ -17,7 +17,7 @@ Future<List<dynamic>> getAlbums() async {
     final albums = albumsData.map((album) {
       final albumId = album["id"];
       final titleContent = album["title"]["_content"];
-      return Albums(albumId: albumId, title: titleContent);
+      return Albums(albumId: albumId, title: titleContent, isSelected: false);
     }).toList();
 
     try {
