@@ -55,7 +55,8 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
       if (albumId!.isNotEmpty && albumTitle!.isNotEmpty) {
         List<Albums> albumsValues = [];
         for (var i = 0; i < albumId.length; i++) {
-          albumsValues.add(Albums(albumId: albumId[i], title: albumTitle[i], isSelected: false));
+          albumsValues.add(Albums(
+              albumId: albumId[i], title: albumTitle[i], isSelected: false));
         }
         setState(() {
           albumsData = albumsValues;
@@ -83,109 +84,125 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   Widget build(BuildContext context) {
     final album = ref.read(selectedAlbum);
 
-    return FutureBuilder(
-      future: _initializeVideoPlayerFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Container(
-            padding:
-                const EdgeInsets.only(top: 20, bottom: 15, left: 15, right: 15),
-            width: widget.swidth,
-            color: terciary,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                // if (displayVideo) ...{
-                  AnimatedContainer(
-                    height: displayVideo? double.maxFinite : 0,
-                    constraints: const BoxConstraints(maxHeight: 262.5),
-                    padding: const EdgeInsets.only(top: 20, bottom: 10),
-                    duration: const Duration(milliseconds: 500),
-                    child: AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    ),
-                  ),
-                // } else ...{
-                  Container(
-                      width: widget.swidth * .9,
-                      margin: const EdgeInsets.only(bottom: 15),
-                      child: Wrap(
-                        alignment: WrapAlignment.spaceBetween,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          if (ModalRoute.of(context)!.settings.name != '/') ...{
-                            Tooltip(
-                                message: "Voltar ao Home",
-                                child: IconButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, "/");
-                                    },
-                                    iconSize: 20,
-                                    icon: const Icon(Icons.home,
-                                        color: primary))),
-                          } else ...{
-                            const SizedBox(
-                              width: 30,
-                            )
-                          },
-                          InkWell(
-                            child: Container(
-                                color: surface,
-                                width: 100,
-                                // margin: EdgeInsets.only(bottom: 20),
-                                height: 5),
-                            onTap: () {
-                              setState(() {
-                                displayVideo = true;
-                              });
-                              hideVideo();
+    return Container(
+      padding: const EdgeInsets.only(top: 20, bottom: 25, left: 15, right: 15),
+      width: widget.swidth,
+      color: terciary,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          // if (displayVideo) ...{
+          AnimatedContainer(
+              height: displayVideo ? double.maxFinite : 0,
+              constraints: const BoxConstraints(maxHeight: 262.5),
+              padding: const EdgeInsets.only(top: 20, bottom: 10),
+              duration: const Duration(milliseconds: 500),
+              child: VideoDisplayer(
+                  videoController: _controller,
+                  initializeVideoPlayerFuture: _initializeVideoPlayerFuture)),
+          // } else ...{
+          Container(
+              width: widget.swidth * .9,
+              margin: const EdgeInsets.only(bottom: 15),
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  if (ModalRoute.of(context)!.settings.name != '/') ...{
+                    Tooltip(
+                        message: "Voltar ao Home",
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/");
                             },
-                          ),
-                          instagramButton(context)
-                        ],
-                      )),
-                // },
-                SizedBox(
-                  width: widget.swidth * .9,
-                  child: Material(
-                    elevation: 5,
-                    color: surface,
-                    child: ExpansionTile(
-                        collapsedIconColor: primary,
-                        title: Text("Galerias", style: textTheme.bodyMedium),
-                        children: [
-                          for (var galery in albumsData) ...{
-                            MenuItemButton(
-                              style: ButtonStyle(
-                                  fixedSize: MaterialStatePropertyAll(
-                                      Size(widget.swidth * 23, 40))),
-                              child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Text(galery.title)),
-                              onPressed: () async {
-                                album.clear();
-                                album.add(galery.albumId);
-                                final SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                await prefs.setString(
-                                    "galeryId", galery.albumId);
-                                Navigator.pushNamed(context, "/galerias");
-                              },
-                            ),
-                          }
-                        ]),
+                            iconSize: 20,
+                            icon: const Icon(Icons.home, color: primary))),
+                  } else ...{
+                    const SizedBox(
+                      width: 30,
+                    )
+                  },
+                  InkWell(
+                    child: Container(
+                        color: surface,
+                        width: 100,
+                        // margin: EdgeInsets.only(bottom: 20),
+                        height: 5),
+                    onTap: () {
+                      setState(() {
+                        displayVideo = true;
+                      });
+                      hideVideo();
+                    },
                   ),
-                )
-              ],
+                  instagramButton(context)
+                ],
+              )),
+          // },
+          SizedBox(
+            width: widget.swidth * .9,
+            child: Material(
+              elevation: 5,
+              color: surface,
+              child: ExpansionTile(
+                  collapsedIconColor: primary,
+                  title: Text("Galerias", style: textTheme.bodyMedium),
+                  children: [
+                    for (var galery in albumsData) ...{
+                      MenuItemButton(
+                        style: ButtonStyle(
+                            fixedSize: MaterialStatePropertyAll(
+                                Size(widget.swidth * 23, 40))),
+                        child: Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text(galery.title)),
+                        onPressed: () async {
+                          album.clear();
+                          album.add(galery.albumId);
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setString("galeryId", galery.albumId);
+                          Navigator.pushNamed(context, "/galerias");
+                        },
+                      ),
+                    }
+                  ]),
             ),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+          )
+        ],
+      ),
     );
+  }
+}
+
+class VideoDisplayer extends StatefulWidget {
+  final VideoPlayerController videoController;
+  final Future<void> initializeVideoPlayerFuture;
+  const VideoDisplayer(
+      {super.key,
+      required this.videoController,
+      required this.initializeVideoPlayerFuture});
+
+  @override
+  State<VideoDisplayer> createState() => _VideoDisplayerState();
+}
+
+class _VideoDisplayerState extends State<VideoDisplayer> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: widget.initializeVideoPlayerFuture,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: AspectRatio(
+                aspectRatio: widget.videoController.value.aspectRatio,
+                child: VideoPlayer(widget.videoController),
+              ),
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        });
   }
 }

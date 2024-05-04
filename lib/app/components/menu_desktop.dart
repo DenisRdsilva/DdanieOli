@@ -88,9 +88,7 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
           children: [
             Container(
               constraints: const BoxConstraints(maxWidth: 350),
-              child: VideoDisplayer(
-                  videoController: _controller,
-                  initializeVideoPlayerFuture: _initializeVideoPlayerFuture),
+              child: Image.asset("assets/images/danieloli.jpg"),
             ),
             MenuItemButton(
               style: ButtonStyle(
@@ -158,37 +156,5 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
         ),
       ),
     );
-  }
-}
-
-class VideoDisplayer extends StatefulWidget {
-  final VideoPlayerController videoController;
-  final Future<void> initializeVideoPlayerFuture;
-  const VideoDisplayer(
-      {super.key,
-      required this.videoController,
-      required this.initializeVideoPlayerFuture});
-
-  @override
-  State<VideoDisplayer> createState() => _VideoDisplayerState();
-}
-
-class _VideoDisplayerState extends State<VideoDisplayer> {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: widget.initializeVideoPlayerFuture,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: AspectRatio(
-                aspectRatio: widget.videoController.value.aspectRatio,
-                child: Image.asset("assets/images/danieloli.jpg"),
-              ),
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        });
   }
 }
