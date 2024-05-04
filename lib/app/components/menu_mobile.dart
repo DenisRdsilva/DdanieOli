@@ -36,14 +36,14 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
     getCache();
   }
 
-  void hideVideo() {
+  void hideVideo() async {
     _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.play();
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   setState(() {
-    //     displayVideo = false;
-    //   });
-    // });
+    await _controller.play();
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        displayVideo = false;
+      });
+    });
   }
 
   void getCache() async {
