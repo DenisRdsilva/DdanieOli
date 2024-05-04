@@ -39,11 +39,11 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   void hideVideo() {
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.play();
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        displayVideo = false;
-      });
-    });
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   setState(() {
+    //     displayVideo = false;
+    //   });
+    // });
   }
 
   void getCache() async {
@@ -95,7 +95,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
           AnimatedContainer(
               height: displayVideo ? double.maxFinite : 0,
               constraints: const BoxConstraints(maxHeight: 262.5),
-              padding: const EdgeInsets.only(top: 20, bottom: 10),
+              padding: const EdgeInsets.only(top: 20),
               duration: const Duration(milliseconds: 500),
               child: VideoDisplayer(
                   videoController: _controller,
