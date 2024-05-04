@@ -91,7 +91,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
     final album = ref.read(selectedAlbum);
 
     return Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 15, left: 15, right: 15),
+      padding: const EdgeInsets.all(15),
       width: widget.swidth,
       color: terciary,
       child: Column(
@@ -104,7 +104,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
             padding: const EdgeInsets.only(top: 20),
             duration: const Duration(milliseconds: 500),
             child: AspectRatio(
-                aspectRatio: 7/5,
+                aspectRatio: 7 / 5,
                 child: Image.asset("assets/images/danieloli.jpg")),
           ),
           // AnimatedContainer(
