@@ -50,7 +50,6 @@ class _GaleriesMobileState extends ConsumerState<GaleriesMobile> {
                       enlargeFactor: .25,
                       autoPlayAnimationDuration: const Duration(seconds: 5),
                       viewportFraction: .5,
-                      initialPage: 0,
                     ),
                   ),
                 ]),

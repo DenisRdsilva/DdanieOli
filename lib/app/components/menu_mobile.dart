@@ -3,6 +3,7 @@
 import 'package:ddanieloli/app/components/instagram_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
@@ -23,7 +24,8 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
   List<Albums> albumsData = [];
-  bool displayVideo = true;
+  bool displayVideo = false;
+  bool displayImage = true;
   double videoHeight = double.maxFinite;
 
   @override
@@ -31,14 +33,24 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
     super.initState();
 
     _controller = VideoPlayerController.asset('assets/videos/DanielOli.mp4');
+    _initializeVideoPlayerFuture = _controller.initialize();
 
-    hideVideo();
+    hideImage();
     getCache();
   }
 
-  void hideVideo() async {
+  void hideImage() {
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      setState(() {
+        displayImage = false;
+      });
+    });
+  }
+
+  void hideVideo() {
     _initializeVideoPlayerFuture = _controller.initialize();
-    await _controller.play();
+    _controller.play();
+
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         displayVideo = false;
@@ -93,13 +105,23 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
         children: [
           // if (displayVideo) ...{
           AnimatedContainer(
+            height: displayImage ? double.maxFinite : 0,
+            constraints: const BoxConstraints(maxHeight: 262.5),
+            padding: const EdgeInsets.only(top: 20),
+            duration: const Duration(milliseconds: 500),
+            child: AspectRatio(
+                aspectRatio: 7/5,
+                child: Image.asset("assets/images/danieloli.jpg")),
+          ),
+          AnimatedContainer(
               height: displayVideo ? double.maxFinite : 0,
               constraints: const BoxConstraints(maxHeight: 262.5),
               padding: const EdgeInsets.only(top: 20),
               duration: const Duration(milliseconds: 500),
               child: VideoDisplayer(
-                  videoController: _controller,
-                  initializeVideoPlayerFuture: _initializeVideoPlayerFuture)),
+                videoController: _controller,
+                initializeVideoPlayerFuture: _initializeVideoPlayerFuture,
+              )),
           // } else ...{
           Container(
               width: widget.swidth * .9,
@@ -146,7 +168,16 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
               color: surface,
               child: ExpansionTile(
                   collapsedIconColor: primary,
-                  title: Text("Galerias", style: textTheme.bodyMedium),
+                  title: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Icon(FontAwesomeIcons.images,
+                            color: primary, size: 15),
+                      ),
+                      Text("Galerias", style: textTheme.bodyMedium),
+                    ],
+                  ),
                   children: [
                     for (var galery in albumsData) ...{
                       MenuItemButton(
@@ -178,10 +209,11 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
 class VideoDisplayer extends StatefulWidget {
   final VideoPlayerController videoController;
   final Future<void> initializeVideoPlayerFuture;
-  const VideoDisplayer(
-      {super.key,
-      required this.videoController,
-      required this.initializeVideoPlayerFuture});
+  const VideoDisplayer({
+    super.key,
+    required this.videoController,
+    required this.initializeVideoPlayerFuture,
+  });
 
   @override
   State<VideoDisplayer> createState() => _VideoDisplayerState();
@@ -197,14 +229,13 @@ class _VideoDisplayerState extends State<VideoDisplayer> {
             return Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: AspectRatio(
-                aspectRatio: widget.videoController.value.aspectRatio,
-                child: VideoPlayer(widget.videoController),
-              ),
+                  aspectRatio: widget.videoController.value.aspectRatio,
+                  child: VideoPlayer(widget.videoController)),
             );
           }
-          return AspectRatio(
-              aspectRatio: widget.videoController.value.aspectRatio,
-              child: const Center(child: CircularProgressIndicator()));
+          return const AspectRatio(
+              aspectRatio: 7/5,
+              child: Center(child: CircularProgressIndicator()));
         });
   }
 }

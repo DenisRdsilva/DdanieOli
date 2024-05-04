@@ -88,7 +88,8 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
           children: [
             Container(
               constraints: const BoxConstraints(maxWidth: 350),
-              child: Image.asset("assets/images/danieloli.jpg"),
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Image.asset("assets/images/danieloli.jpg")
             ),
             MenuItemButton(
               style: ButtonStyle(
