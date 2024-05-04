@@ -4,6 +4,7 @@ import 'package:ddanieloli/app/components/instagram_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gif_view/gif_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
@@ -21,9 +22,9 @@ class MenuMobile extends ConsumerStatefulWidget {
 
 class _MenuMobileState extends ConsumerState<MenuMobile> {
   List<Albums> albumsData = [];
-  bool displayVideo = false;
   bool displayImage = true;
   double videoHeight = double.maxFinite;
+  final _controller = GifController(autoPlay: true, loop: false);
 
   @override
   void initState() {
@@ -34,7 +35,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   }
 
   void hideImage() {
-    Future.delayed(const Duration(milliseconds: 1500), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         displayImage = false;
       });
@@ -99,14 +100,15 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
         children: [
           // if (displayVideo) ...{
           AnimatedContainer(
-            height: displayImage ? double.maxFinite : 0,
-            constraints: const BoxConstraints(maxHeight: 262.5),
-            padding: const EdgeInsets.only(top: 20),
-            duration: const Duration(milliseconds: 500),
-            child: AspectRatio(
+              height: displayImage ? double.maxFinite : 0,
+              constraints: const BoxConstraints(maxHeight: 262.5),
+              padding: const EdgeInsets.only(top: 20),
+              duration: const Duration(milliseconds: 500),
+              child: AspectRatio(
                 aspectRatio: 7 / 5,
-                child: Image.asset("assets/images/danieloli.jpg")),
-          ),
+                child: GifView.asset("assets/images/danieloli.gif",
+                    controller: _controller),
+              )),
           // AnimatedContainer(
           //     height: displayVideo ? double.maxFinite : 0,
           //     constraints: const BoxConstraints(maxHeight: 262.5),
@@ -148,6 +150,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
                       setState(() {
                         displayImage = true;
                       });
+                      _controller.play();
                       hideImage();
                     },
                   ),

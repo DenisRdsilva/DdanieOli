@@ -4,6 +4,7 @@ import 'package:ddanieloli/app/components/instagram_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gif_view/gif_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
@@ -21,12 +22,24 @@ class MenuDesktop extends ConsumerStatefulWidget {
 
 class _MenuDesktopState extends ConsumerState<MenuDesktop> {
   List<Albums> albumsData = [];
+  bool displayImage = true;
+  final _controller = GifController(
+    autoPlay: true,
+    loop: false,
+  );
 
   @override
   void initState() {
     super.initState();
 
+    hideImage();
     getCache();
+  }
+
+  void hideImage() {
+    setState(() {
+      displayImage = false;
+    });
   }
 
   void getCache() async {
@@ -81,10 +94,12 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Container(
-              constraints: const BoxConstraints(maxWidth: 350),
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Image.asset("assets/images/danieloli.jpg")
-            ),
+                constraints: const BoxConstraints(maxWidth: 350),
+                padding: const EdgeInsets.only(bottom: 20),
+                child: displayImage
+                    ? GifView.asset("assets/images/danieloli.gif",
+                        controller: _controller)
+                    : Image.asset("assets/images/danieloli.jpg")),
             MenuItemButton(
               style: ButtonStyle(
                   mouseCursor: MaterialStateMouseCursor.textable,
