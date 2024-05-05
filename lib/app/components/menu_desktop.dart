@@ -46,7 +46,7 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final List<String>? albumId = prefs.getStringList('albumId');
-      final List<String>? albumTitle = prefs.getStringList('albumTitle');
+      List<String>? albumTitle = prefs.getStringList('albumTitle');
 
       if (albumId!.isNotEmpty && albumTitle!.isNotEmpty) {
         List<Albums> albumsValues = [];
@@ -54,6 +54,7 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
           albumsValues.add(Albums(
               albumId: albumId[i], title: albumTitle[i], isSelected: false));
         }
+        albumsValues.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
         setState(() {
           albumsData = albumsValues;
         });
@@ -70,6 +71,7 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
   Future checkData() async {
     final response = await getAlbums();
     final albums = response as List<Albums>;
+    albums.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
 
     setState(() {
       albumsData = [...albums];

@@ -42,17 +42,6 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
     });
   }
 
-  // void hideVideo() {
-  //   _initializeVideoPlayerFuture = _controller.initialize();
-  //   _controller.play();
-
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     setState(() {
-  //       displayVideo = false;
-  //     });
-  //   });
-  // }
-
   void getCache() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -64,6 +53,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
         for (var i = 0; i < albumId.length; i++) {
           albumsValues.add(Albums(
               albumId: albumId[i], title: albumTitle[i], isSelected: false));
+          albumsValues.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
         }
         setState(() {
           albumsData = albumsValues;
@@ -81,6 +71,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   Future checkData() async {
     final response = await getAlbums();
     final albums = response as List<Albums>;
+    albums.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
 
     setState(() {
       albumsData = [...albums];
