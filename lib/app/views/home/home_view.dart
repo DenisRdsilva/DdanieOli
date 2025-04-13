@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ddanieloli/app/views/home/device/home_desktop.dart';
 import 'package:ddanieloli/app/views/home/device/home_mobile.dart';
 import 'package:flutter/material.dart';
@@ -13,28 +12,15 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-List<String> galeriesTitle = [
-  "A Arte Vive",
-  "Andando pela Natureza",
-  "Devaneios do Artista",
-  "Selvas de Pedra",
-  "Trabalhadores da Praia"
-];
-
 class _HomePageState extends State<HomePage> {
-  CarouselController buttonCarouselController = CarouselController();
-  
-
   @override
   Widget build(BuildContext context) {
     double swidth = MediaQuery.of(context).size.width;
 
     if (swidth > 1000) {
-      return TemplateSideMenu(
-          content: homeDesktop(context, swidth));
+      return TemplateSideMenu(content: HomeDesktop(swidth: swidth));
     } else {
-      return TemplateColMenu(
-          content: HomeMobile(swidth: swidth));
+      return TemplateColMenu(content: HomeMobile(swidth: swidth));
     }
   }
 }

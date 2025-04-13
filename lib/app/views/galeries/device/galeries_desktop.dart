@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,8 @@ class GaleriesDesktop extends ConsumerStatefulWidget {
 
 class _GaleriesDesktopState extends ConsumerState<GaleriesDesktop> {
   List<String> imagesList = [];
-  CarouselController buttonCarouselController = CarouselController();
+  CarouselSliderController buttonCarouselController =
+      CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +60,10 @@ class _GaleriesDesktopState extends ConsumerState<GaleriesDesktop> {
                       IconButton(
                         color: primary,
                         style: const ButtonStyle(
-                            elevation: MaterialStatePropertyAll(4),
-                            shape: MaterialStatePropertyAll(
+                            elevation: WidgetStatePropertyAll(4),
+                            shape: WidgetStatePropertyAll(
                                 CircleBorder(eccentricity: 1))),
-                        onPressed: () => buttonCarouselController.nextPage(
+                        onPressed: () => buttonCarouselController.previousPage(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.linear),
                         icon: const Icon(Icons.arrow_back_ios_sharp),
@@ -71,8 +71,8 @@ class _GaleriesDesktopState extends ConsumerState<GaleriesDesktop> {
                       IconButton(
                         color: primary,
                         style: const ButtonStyle(
-                            elevation: MaterialStatePropertyAll(4),
-                            shape: MaterialStatePropertyAll(
+                            elevation: WidgetStatePropertyAll(4),
+                            shape: WidgetStatePropertyAll(
                                 CircleBorder(eccentricity: 1))),
                         onPressed: () => buttonCarouselController.nextPage(
                             duration: const Duration(milliseconds: 300),

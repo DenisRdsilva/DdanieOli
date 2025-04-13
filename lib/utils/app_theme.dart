@@ -87,32 +87,32 @@ final MaterialApp appMaterial = MaterialApp(
   theme: ThemeData(
       menuButtonTheme: MenuButtonThemeData(
           style: ButtonStyle(
-        overlayColor: const MaterialStatePropertyAll(surface),
-        foregroundColor: const MaterialStatePropertyAll(primary),
-        textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
+        overlayColor: const WidgetStatePropertyAll(surface),
+        foregroundColor: const WidgetStatePropertyAll(primary),
+        textStyle: WidgetStatePropertyAll(textTheme.bodyMedium),
       )),
       menuBarTheme: const MenuBarThemeData(
           style: MenuStyle(
-              // padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 18, vertical: 15)),
-              elevation: MaterialStatePropertyAll(0),
-              backgroundColor: MaterialStatePropertyAll(secondary),
-              shape: MaterialStatePropertyAll(
+              // padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 18, vertical: 15)),
+              elevation: WidgetStatePropertyAll(0),
+              backgroundColor: WidgetStatePropertyAll(secondary),
+              shape: WidgetStatePropertyAll(
                   BeveledRectangleBorder(borderRadius: BorderRadius.zero)))),
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
-        shape: const MaterialStatePropertyAll(
+        shape: const WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         ),
-        backgroundColor: const MaterialStatePropertyAll(primary),
-        foregroundColor: const MaterialStatePropertyAll(onPrimary),
-        padding: const MaterialStatePropertyAll(EdgeInsets.all(10)),
-        textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
-        overlayColor: const MaterialStatePropertyAll(textFieldBackground),
+        backgroundColor: const WidgetStatePropertyAll(primary),
+        foregroundColor: const WidgetStatePropertyAll(onPrimary),
+        padding: const WidgetStatePropertyAll(EdgeInsets.all(10)),
+        textStyle: WidgetStatePropertyAll(textTheme.bodyMedium),
+        overlayColor: const WidgetStatePropertyAll(textFieldBackground),
       )),
       iconButtonTheme: const IconButtonThemeData(
           style: ButtonStyle(
-              elevation: MaterialStatePropertyAll(4),
-              shape: MaterialStatePropertyAll(CircleBorder(eccentricity: 1)))),
+              elevation: WidgetStatePropertyAll(4),
+              shape: WidgetStatePropertyAll(CircleBorder(eccentricity: 1)))),
       useMaterial3: true,
       fontFamily: 'Saira',
       visualDensity: VisualDensity.adaptivePlatformDensity,

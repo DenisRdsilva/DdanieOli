@@ -17,7 +17,7 @@ class GaleriesMobile extends ConsumerStatefulWidget {
 
 class _GaleriesMobileState extends ConsumerState<GaleriesMobile> {
   List<String> imagesList = [];
-  CarouselController buttonCarouselController = CarouselController();
+  // CarouselController buttonCarouselController = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _GaleriesMobileState extends ConsumerState<GaleriesMobile> {
                 children: <Widget>[
                   CarouselSlider(
                     items: imageWidgets,
-                    carouselController: buttonCarouselController,
+                    // carouselController: buttonCarouselController,
                     options: CarouselOptions(
                       scrollDirection: Axis.vertical,
                       autoPlay: false,

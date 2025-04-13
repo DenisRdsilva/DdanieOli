@@ -1,13 +1,13 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:ddanieloli/app/components/instagram_btn.dart';
+import 'package:ddanieloli/app/components/menu_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gif_view/gif_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../main.dart';
 import '../../utils/app_theme.dart';
 import '../controllers/home_controllers.dart';
 import '../models/home_models.dart';
@@ -25,56 +25,25 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
   bool displayImage = true;
   double videoHeight = double.maxFinite;
   final _controller = GifController(autoPlay: true, loop: false);
-
   @override
   void initState() {
     super.initState();
 
     hideImage();
-    getCache();
-  }
-
-  void hideImage() {
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        displayImage = false;
-      });
+    getCache().then((response) {
+      displayData(response);
     });
   }
 
-  void getCache() async {
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final List<String>? albumId = prefs.getStringList('albumId');
-      final List<String>? albumTitle = prefs.getStringList('albumTitle');
-
-      if (albumId!.isNotEmpty && albumTitle!.isNotEmpty) {
-        List<Albums> albumsValues = [];
-        for (var i = 0; i < albumId.length; i++) {
-          albumsValues.add(Albums(
-              albumId: albumId[i], title: albumTitle[i], isSelected: false));
-          albumsValues.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-        }
-        setState(() {
-          albumsData = albumsValues;
-        });
-      } else {
-        logger.info("Cache expirou");
-        checkData();
-      }
-    } catch (e) {
-      logger.info("Erro ao obter dados de cache: $e");
-      checkData();
-    }
+  void hideImage() {
+    setState(() {
+      displayImage = false;
+    });
   }
 
-  Future checkData() async {
-    final response = await getAlbums();
-    final albums = response as List<Albums>;
-    albums.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-
+  void displayData(data) {
     setState(() {
-      albumsData = [...albums];
+      albumsData = data;
     });
   }
 
@@ -83,7 +52,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
     final album = ref.read(selectedAlbum);
 
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10),
       width: widget.swidth,
       color: terciary,
       child: Column(
@@ -112,7 +81,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
           // } else ...{
           Container(
               width: widget.swidth * .9,
-              margin: const EdgeInsets.only(top: 10, bottom: 15),
+              margin: const EdgeInsets.only(bottom: 5),
               child: Wrap(
                 alignment: WrapAlignment.spaceBetween,
                 crossAxisAlignment: WrapCrossAlignment.center,
@@ -170,7 +139,7 @@ class _MenuMobileState extends ConsumerState<MenuMobile> {
                     for (var galery in albumsData) ...{
                       MenuItemButton(
                         style: ButtonStyle(
-                            fixedSize: MaterialStatePropertyAll(
+                            fixedSize: WidgetStatePropertyAll(
                                 Size(widget.swidth * 23, 40))),
                         child: Padding(
                             padding: const EdgeInsets.only(left: 20),

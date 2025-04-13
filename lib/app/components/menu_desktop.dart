@@ -20,6 +20,46 @@ class MenuDesktop extends ConsumerStatefulWidget {
   _MenuDesktopState createState() => _MenuDesktopState();
 }
 
+Future<List<Albums>> getCache() async {
+  try {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? albumId = prefs.getStringList('albumId');
+    List<String>? albumTitle = prefs.getStringList('albumTitle');
+
+    if (albumId!.isNotEmpty && albumTitle!.isNotEmpty) {
+      List<Albums> albumsValues = [];
+      for (var i = 0; i < albumId.length; i++) {
+        albumsValues.add(Albums(
+            albumId: albumId[i], title: albumTitle[i], isSelected: false));
+      }
+      albumsValues.sort(
+          (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+      // setState(() {
+      //   albumsData = albumsValues;
+      // });
+      return albumsValues;
+    } else {
+      logger.info("Cache expirou");
+      return checkData();
+    }
+  } catch (e) {
+    logger.info("Erro ao obter dados de cache: $e");
+    return checkData();
+  }
+}
+
+Future<List<Albums>> checkData() async {
+  final response = await getAlbums();
+  final albums = response as List<Albums>;
+  albums.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+
+  return [...albums];
+
+  // setState(() {
+  //   albumsData = [...albums];
+  // });
+}
+
 class _MenuDesktopState extends ConsumerState<MenuDesktop> {
   List<Albums> albumsData = [];
   bool displayImage = true;
@@ -33,7 +73,9 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
     super.initState();
 
     hideImage();
-    getCache();
+    getCache().then((response) {
+      displayData(response);
+    });
   }
 
   void hideImage() {
@@ -42,39 +84,9 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
     });
   }
 
-  void getCache() async {
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final List<String>? albumId = prefs.getStringList('albumId');
-      List<String>? albumTitle = prefs.getStringList('albumTitle');
-
-      if (albumId!.isNotEmpty && albumTitle!.isNotEmpty) {
-        List<Albums> albumsValues = [];
-        for (var i = 0; i < albumId.length; i++) {
-          albumsValues.add(Albums(
-              albumId: albumId[i], title: albumTitle[i], isSelected: false));
-        }
-        albumsValues.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-        setState(() {
-          albumsData = albumsValues;
-        });
-      } else {
-        logger.info("Cache expirou");
-        checkData();
-      }
-    } catch (e) {
-      logger.info("Erro ao obter dados de cache: $e");
-      checkData();
-    }
-  }
-
-  Future checkData() async {
-    final response = await getAlbums();
-    final albums = response as List<Albums>;
-    albums.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-
+  void displayData(data) {
     setState(() {
-      albumsData = [...albums];
+      albumsData = data;
     });
   }
 
@@ -105,9 +117,9 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
             MenuItemButton(
               style: ButtonStyle(
                   mouseCursor: MaterialStateMouseCursor.textable,
-                  backgroundColor: const MaterialStatePropertyAll(surface),
+                  backgroundColor: const WidgetStatePropertyAll(surface),
                   fixedSize:
-                      MaterialStatePropertyAll(Size(widget.swidth * 23, 35))),
+                      WidgetStatePropertyAll(Size(widget.swidth * 23, 35))),
               child: const Row(
                 children: [
                   Padding(
@@ -124,7 +136,7 @@ class _MenuDesktopState extends ConsumerState<MenuDesktop> {
               MenuItemButton(
                 style: ButtonStyle(
                     fixedSize:
-                        MaterialStatePropertyAll(Size(widget.swidth * 23, 35))),
+                        WidgetStatePropertyAll(Size(widget.swidth * 23, 35))),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Text(galery.title),
